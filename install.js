@@ -21,9 +21,15 @@ connection.connect((err) => {
 })
 
 // SQL-fråga
-/* connection.query("CREATE TABLE id;", (err, results) => {
+connection.query(`CREATE TABLE courses (
+    id                   integer auto_increment primary key,
+    coursecode           varchar(255),
+    coursename           varchar(255),
+    syllabus             VARCHAR(255),
+    progression          VARCHAR(1)
+);`, (err, results) => {
     if(err) throw err;
 
     console.log("Database created: " + results);
 });
- */
+

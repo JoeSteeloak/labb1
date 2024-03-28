@@ -91,3 +91,27 @@ app.get('/about', (req, res) => {
 app.listen(port, () => {
     console.log("server started on port " + port);
 });
+
+
+/* Starta upp databasen */
+// .env
+require('dotenv').config({path: './.env'});
+
+const mysql = require("mysql");
+
+// Anslutningsinställningar
+const connection = mysql.createConnection({
+    host: process.env.HOST,
+    user: process.env.USER_ACC,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
+});
+
+connection.connect((err) => {
+    if(err) {
+        console.error("connection failed: " + err);
+        return;
+    }
+
+    console.log("Connected to MySQL!");
+})
