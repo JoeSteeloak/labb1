@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/button.css">
     <title>Lägg till kurs</title>
 </head>
 
@@ -32,10 +33,10 @@
                 <form id="courseForm" method="post">
                     <!-- kurskod -->
                     <label for="code">Kurskod:</label><br>
-                    <input type="text" name="code" id="code" placeholder="t.ex. DT003G" maxlength="20"><br>
+                    <input type="text" name="code" id="code" placeholder="t.ex. DT003G" maxlength="255"><br>
                     <!-- kursnamn -->
                     <label for="name">Kursnamn:</label><br>
-                    <input type="text" name="name" id="name" placeholder="t.ex. Databaser" maxlength="20"><br>
+                    <input type="text" name="name" id="name" placeholder="t.ex. Databaser" maxlength="255"><br>
                     <!-- progression radioknappar -->
                     <p>Progression:</p>
                     <input type="radio" id="A" name="progression" value="A" checked>
@@ -47,11 +48,11 @@
                     <!-- syllabus url -->
                     <label for="syllabus">URL till Kursplan:</label><br>
                     <input type="text" name="syllabus" id="syllabus" placeholder="https://..." autocomplete="url"
-                        maxlength="50"><br><br>
+                        maxlength="255"><br><br>
                     <!-- submit-knapp -->
-                    <input type="submit" id="saveBtn" value="Spara kurs">
+                    <button type="submit" id="saveBtn" class="button-53" role="button">Spara kurs</button>
                     <!-- rensa-knapp -->
-                    <input type="reset" value="Rensa formulär">
+                    <button type="reset" class="button-53" role="button">Rensa formulär</button>
                 </form>
     </main>
 </body>
