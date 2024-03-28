@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>Lägg till kurs</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/">Startsidan</a></li>
+            <li><a href="/addcourse">Lägg till kurser</a></li>
+            <li><a href="/about">Om sidan</a></li>
+        </ul>
+    </header>
+    <main>
+        <h1>Lägg till kurs</h1>
+
+        <% if(locals.errors.length> 0) { %>
+            <ul>
+                <% errors.forEach((error)=> { %>
+                    <li>
+                        <%= error %>
+                    </li>
+                    <% }); %>
+            </ul>
+            <% } %>
+
+                <form id="courseForm" method="post">
+                    <!-- kurskod -->
+                    <label for="code">Kurskod:</label><br>
+                    <input type="text" name="code" id="code" placeholder="t.ex. DT003G" maxlength="20"><br>
+                    <!-- kursnamn -->
+                    <label for="name">Kursnamn:</label><br>
+                    <input type="text" name="name" id="name" placeholder="t.ex. Databaser" maxlength="20"><br>
+                    <!-- progression radioknappar -->
+                    <p>Progression:</p>
+                    <input type="radio" id="A" name="progression" value="A" checked>
+                    <label for="A">A</label>
+                    <input type="radio" id="B" name="progression" value="B">
+                    <label for="B">B</label>
+                    <input type="radio" id="C" name="progression" value="C">
+                    <label for="C">C</label><br>
+                    <!-- syllabus url -->
+                    <label for="syllabus">URL till Kursplan:</label><br>
+                    <input type="text" name="syllabus" id="syllabus" placeholder="https://..." autocomplete="url"
+                        maxlength="50"><br><br>
+                    <!-- submit-knapp -->
+                    <input type="submit" id="saveBtn" value="Spara kurs">
+                    <!-- rensa-knapp -->
+                    <input type="reset" value="Rensa formulär">
+                </form>
+    </main>
+</body>
+
+</html>

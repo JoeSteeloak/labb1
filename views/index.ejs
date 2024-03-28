@@ -12,12 +12,32 @@
     <header>
         <ul>
             <li><a href="/">Startsidan</a></li>
-            <li><a href="/members">Medlemmar</a></li>
+            <li><a href="/addcourse">Lägg till kurser</a></li>
             <li><a href="/about">Om sidan</a></li>
         </ul>
     </header>
-    <h1>Hello!</h1>
-    <footer><p>Exempel av <%=fullName %></p></footer>
+    <main>
+        <h1>Kurser</h1>
+
+        <% if(courseList.length> 0) { %>
+            <% courseList.forEach((course)=> { %>
+                <article>
+                    <h2>
+                        <%= course.coursename %>
+                    </h2>
+                    <p>
+                        kurs-id: <%= course.coursecode %>
+                    </p>
+                    <p>
+                        Progression: <%= course.progression %>
+                    </p>
+                    <a href="<%= course.syllabus %>">Länk till kursplan</a>
+                </article>
+                <% }); %>
+                    <% } else { %>
+                        <p>Inga kurser finns i listan...</p>
+                        <% } %>
+    </main>
 </body>
 
 </html>

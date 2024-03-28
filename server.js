@@ -4,20 +4,7 @@ const bodyParser = require("body-parser")   /* möjlighet att läsa in formdata 
 const app = express();
 const port = 9001;
 
-const memberList = [
-    {
-        fullname: "Jonas Ståleker",
-        email: "jonasstaleker@gmail.com"
-    },
-    {
-        fullname: "Mattias Dahlgren",
-        email: "mattias.dahlgren@miun.se"
-    },
-    {
-        fullname: "Malin Larsson",
-        email: "malin.larsson@miun.se"
-    },
-];
+const courseList = [];
 
 app.set("view engine", "ejs");              //view engine: EJS
 app.use(express.static("public"));          //statiska filer i katalog "public"
@@ -26,58 +13,64 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* Routing */
 app.get('/', (req, res) => {
     res.render("index", {
-        fullName: "Jonas Ståleker"
+        courseList
     });
 });
 
-app.get('/members', (req, res) => {
-
-    res.render("members", {
-        memberList
-    });
-});
-
-app.get("/members/add", (req, res) => {
-    res.render("addmember", {
+app.get("/addcourse", (req, res) => {
+    res.render("addcourse", {
         errors: [],
+        newCode: "",
         newName: "",
-        newEmail: ""
+        newSyllabus: "",
     });
 })
 
-app.post("/members/add", (req, res) => {
+app.post("/addcourse", (req, res) => {
     //läs in formulärdata
+    let newCode = req.body.code;
     let newName = req.body.name;
-    let newEmail = req.body.email;
+    let newProgression = req.body.progression;
+    let newSyllabus = req.body.syllabus;
+
+    console.log(newCode, newName, newProgression, newSyllabus);
 
     let errors = [];
 
     /* validera input */
-    if (newName === "") {
-        errors.push("Ange ett korrekt namn");
+    if (newCode === "") {
+        errors.push("Ange en korrekt kurskod");
     }
 
-    if (newEmail === "") {
-        errors.push("Ange en korrekt Epost-adress");
+    if (newName === "") {
+        errors.push("Ange ett korrekt kursnamn");
+    }
+
+    if (newSyllabus === "") {
+        errors.push("Ange en korrekt URL");
     }
 
     /* Är allt korrekt ifyllt? */
     if (errors.length === 0) {
-        memberList.push({
-            fullname: newName,
-            email: newEmail
-        });
+        /* Skiv in i databasen */
+        connection.query('INSERT INTO courses(coursecode, coursename, progression, syllabus) VALUES (?, ?, ?, ?)', 
+        [newCode, newName, newProgression, newSyllabus], 
+        (err, results) => {
+            if (err) throw err;
+            console.log("Data inserted successfully: ", results);
+    });
         /* Nollställ värden */
         newName = "";
         newEmail = "";
 
-        //Redirect till medlemssidan
-        res.redirect("/members");
+        //Redirect till startsidan
+        res.redirect("/");
     } else {
-        res.render("addmember", {
+        res.render("addcourse", {
             errors: errors,
+            newCode: newCode,
             newName: newName,
-            newEmail: newEmail
+            newProgression: newProgression
         });
     }
 });
@@ -95,7 +88,7 @@ app.listen(port, () => {
 
 /* Starta upp databasen */
 // .env
-require('dotenv').config({path: './.env'});
+require('dotenv').config({ path: './.env' });
 
 const mysql = require("mysql");
 
@@ -108,10 +101,33 @@ const connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-    if(err) {
+    if (err) {
         console.error("connection failed: " + err);
         return;
     }
 
     console.log("Connected to MySQL!");
 })
+
+
+/* Hämta in databasen */
+
+// Utför en fråga för att hämta data från databasen
+connection.query('SELECT * FROM courses', (err, rows) => {
+    if (err) throw err;
+
+    rows.forEach(row => {
+        // Skapa ett objekt för varje rad 
+        const courseObject = {
+            coursecode: row.coursecode,
+            coursename: row.coursename,
+            progression: row.progression,
+            syllabus: row.syllabus
+        };
+
+        // Lägg till det nya objektet i dataList
+        courseList.push(courseObject);
+    });
+
+});
+

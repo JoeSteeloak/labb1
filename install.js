@@ -30,6 +30,6 @@ connection.query(`CREATE TABLE courses (
 );`, (err, results) => {
     if(err) throw err;
 
-    console.log("Database created: " + results);
+    console.log("table created: " + results);
 });
 
