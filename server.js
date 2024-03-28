@@ -53,12 +53,12 @@ app.post("/addcourse", (req, res) => {
     /* Är allt korrekt ifyllt? */
     if (errors.length === 0) {
         /* Skiv in i databasen */
-        connection.query('INSERT INTO courses(coursecode, coursename, progression, syllabus) VALUES (?, ?, ?, ?)', 
-        [newCode, newName, newProgression, newSyllabus], 
-        (err, results) => {
-            if (err) throw err;
-            console.log("Data inserted successfully: ", results);
-    });
+        connection.query('INSERT INTO courses(coursecode, coursename, progression, syllabus) VALUES (?, ?, ?, ?)',
+            [newCode, newName, newProgression, newSyllabus],
+            (err, results) => {
+                if (err) throw err;
+                console.log("Data inserted successfully: ", results);
+            });
         /* Nollställ värden */
         newName = "";
         newEmail = "";
