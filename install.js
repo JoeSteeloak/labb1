@@ -21,9 +21,9 @@ connection.connect((err) => {
 })
 
 // SQL-fråga
-connection.query("CREATE TABLE id;", (err, results) => {
+/* connection.query("CREATE TABLE id;", (err, results) => {
     if(err) throw err;
 
     console.log("Database created: " + results);
 });
-
+ */
