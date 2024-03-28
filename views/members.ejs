@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medlemmar</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/">Startsidan</a></li>
+            <li><a href="/members">Medlemmar</a></li>
+            <li><a href="/about">Om sidan</a></li>
+        </ul>
+    </header>
+    <main>
+        <h1>Medlemmar!</h1>
+        <p>
+            <a href="/members/add">Lägg till ny medlem</a>
+        </p>
+        <% if(memberList.length> 0) { %>
+            <% memberList.forEach((member) => { %>
+                <article>
+                    <h2><%= member.fullname %></h2>
+                    <p>
+                        E-post: <%= member.email %>
+                    </p>
+                </article>
+        <%  }); %>
+        <% } else { %>
+                <p>Inga medlemmar finns i listan...</p>
+        <% } %>
+    </main>
+
+</body>
+
+</html>

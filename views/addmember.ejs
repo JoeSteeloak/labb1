@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lägg till medlem</title>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li><a href="/">Startsidan</a></li>
+            <li><a href="/members">Medlemmar</a></li>
+            <li><a href="/about">Om sidan</a></li>
+        </ul>
+    </header>
+    <main>
+        <h1>Lägg till medlem</h1>
+
+        <% if(locals.errors.length> 0) { %>
+            <ul>
+                <% errors.forEach((error)=> { %>
+                    <li>
+                        <%= error %>
+                    </li>
+                    <% }); %>
+            </ul>
+            <% } %>
+
+                <form method="post">
+                    <label for="name">Namn:</label>
+                    <input type="text" id="name" name="name" value="<%= newName %>">
+                    <br>
+                    <label for="email">Epost-adress:</label>
+                    <input type="email" name="email" id="email" value="<%= newEmail %>">
+                    <br>
+                    <input type="submit" value="Lägg till ny medlem">
+                </form>
+    </main>
+</body>
+
+</html>
