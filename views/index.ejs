@@ -21,7 +21,7 @@
 
         <% if(courseList.length> 0) { %>
             <% courseList.forEach((course)=> { %>
-                <article id="courseList">
+                <article class="courseList" id="<%= course.id %>">
                     <h2>
                         <%= course.coursename %>
                     </h2>

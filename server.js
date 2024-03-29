@@ -119,6 +119,7 @@ connection.query('SELECT * FROM courses', (err, rows) => {
     rows.forEach(row => {
         // Skapa ett objekt för varje rad 
         const courseObject = {
+            id: row.id,
             coursecode: row.coursecode,
             coursename: row.coursename,
             progression: row.progression,
