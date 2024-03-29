@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")   /* möjlighet att läsa in formdata 
 const app = express();
 const port = 9001;
 
-const courseList = [];
+let courseList = [];
 
 app.set("view engine", "ejs");              //view engine: EJS
 app.use(express.static("public"));          //statiska filer i katalog "public"
@@ -132,3 +132,25 @@ connection.query('SELECT * FROM courses', (err, rows) => {
 
 });
 
+/* Radera en rad i databasen */
+
+app.post("/deleteCourse", (req, res) => {
+    // Läs in id för kursen som ska tas bort
+    const courseId = req.body.courseId;
+
+    // query för att ta bort kursen från databasen 
+    connection.query('DELETE FROM courses WHERE id = ?', [courseId], (err, results) => {
+        if (err) {
+            console.error("Error deleting course: ", err);
+            res.status(500).send("Error deleting course");
+            return;
+        }
+
+        console.log("Course deleted successfully: ", results);
+
+        // Uppdatera courseList 
+        const updatedCourseList = courseList.filter(course => course.id !== courseId);
+        courseList = updatedCourseList;
+
+    });
+});

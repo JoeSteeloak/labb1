@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/button.css">
     <title>labb 1 backend</title>
 </head>
 
@@ -32,6 +33,13 @@
                         Progression: <%= course.progression %>
                     </p>
                     <a href="<%= course.syllabus %>">Länk till kursplan</a>
+
+                    <!-- raderaknapp -->
+                    <form action="/deleteCourse" method="post">
+                        <input type="hidden" name="courseId" value="<%= course.id %>">
+                        <button type="submit" class="button-53">Radera</button>
+                    </form>
+
                 </article>
                 <% }); %>
                     <% } else { %>
