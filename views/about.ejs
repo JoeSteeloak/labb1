@@ -16,7 +16,31 @@
             <li><a href="/about">Om sidan</a></li>
         </ul>
     </header>
-    <h1>Om sidan!</h1>
+    <main>
+        <h1>Om sidan!</h1>
+        <h2>Syfte</h2>
+        <p>
+            Webbsidans syfte är att låta användare skicka in data om kurser de läser genom att fylla i ett formulär.
+            Detta sparas sen i en databas på en server som hämtar in informationen och visar den på webbsidans
+            startsida. Webbsidan körs server-based istället för client-based med NodeJS och Express. All kod är skriven
+            i Visual Studio Code.
+        </p>
+        <h2>Databasservern</h2>
+        <p>
+            Databasemanagern som används är MySQL/MariaDB och hostas på <a
+            href="https://heliohost.org/">heliohost.org<a>. Formuläret skickar queries med POST-metoden och med
+            hjälp av body-parser som lagrar kursen i databasen och sen hämtas de in på startsidan för att visas
+            för användare.
+        </p>
+        <h2>Slutsats</h2>
+        <p>
+            Denna uppgift har lärt mig hur serverbaserade webbsidor utvecklas och hur databaser kan användas i
+            webbapplikationer. Att kombinera dessa två i praktiken var den stora utmaningen. Samtidigt fick jag lära mig
+            hur viktigt det är att skydda sig mot SQL injections och att skydda känslig data så som databasens
+            inloggningsuppgifter när man publicerar webbapplikationer.
+        </p>
+    </main>
+
 </body>
 
 </html>
