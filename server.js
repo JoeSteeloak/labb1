@@ -12,9 +12,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 /* Routing */
 app.get('/', (req, res) => {
-    res.render("index", {
-        courseList
+
+    // Utför en fråga för att hämta data från databasen
+    connection.query('SELECT * FROM courses', (err, rows) => {
+        if (err) throw err;
+        courseList = []; //radera listan så den inte upprepas
+
+        rows.forEach(row => {
+            // Skapa ett objekt för varje rad 
+            const courseObject = {
+                id: row.id,
+                coursecode: row.coursecode,
+                coursename: row.coursename,
+                progression: row.progression,
+                syllabus: row.syllabus
+            };
+
+            // Lägg till det nya objektet i courseList
+            courseList.push(courseObject);
+        });
+        res.render("index", {
+            courseList
+        });
     });
+
 });
 
 app.get("/addcourse", (req, res) => {
@@ -32,9 +53,6 @@ app.post("/addcourse", (req, res) => {
     let newName = req.body.name;
     let newProgression = req.body.progression;
     let newSyllabus = req.body.syllabus;
-
-    console.log(newCode, newName, newProgression, newSyllabus);
-
     let errors = [];
 
     /* validera input */
@@ -65,6 +83,7 @@ app.post("/addcourse", (req, res) => {
 
         //Redirect till startsidan
         res.redirect("/");
+
     } else {
         res.render("addcourse", {
             errors: errors,
@@ -113,7 +132,7 @@ connection.connect((err) => {
 /* Hämta in databasen */
 
 // Utför en fråga för att hämta data från databasen
-connection.query('SELECT * FROM courses', (err, rows) => {
+/* connection.query('SELECT * FROM courses', (err, rows) => {
     if (err) throw err;
 
     rows.forEach(row => {
@@ -131,6 +150,7 @@ connection.query('SELECT * FROM courses', (err, rows) => {
     });
 
 });
+ */
 
 /* Radera en rad i databasen */
 
@@ -151,6 +171,9 @@ app.post("/deleteCourse", (req, res) => {
         // Uppdatera courseList 
         const updatedCourseList = courseList.filter(course => course.id !== courseId);
         courseList = updatedCourseList;
+
+        //Redirect till startsidan
+        res.redirect("/");
 
     });
 });
