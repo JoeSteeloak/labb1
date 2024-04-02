@@ -70,3 +70,12 @@ button {
     margin-top: 20px;
 }
 
+.about {
+    max-width: 960px;
+    width: 90%;
+    margin: 0 auto;
+    background-color: white;
+    opacity: 0.8;
+    padding: 1em;
+    border-radius: 25px;
+}
